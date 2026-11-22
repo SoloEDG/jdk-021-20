@@ -30,7 +30,7 @@ defineEmits<{ command: [cmd: Command] }>();
       </button>
     </div>
     <p class="muted">
-      已备 {{ game.portions.length }} / 6 份 · 在灶台选择空闲设备下锅
+      已备 {{ game.portions.length }} / 6 份 · 备料当天打烊清零，未加工原料可跨日保留
     </p>
   </section>
 </template>

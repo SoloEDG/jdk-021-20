@@ -1,5 +1,5 @@
 import type { Game } from "../../../shared/types";
-import { recipes } from "../../../shared/catalog";
+import { recipes, WEAR_PER_COOK } from "../../../shared/catalog";
 import { quality } from "../lib/heat";
 export function cook(g: Game, portion: number, stove: number) {
   const p = g.portions.find((p) => p.id === portion),
@@ -11,6 +11,8 @@ export function cook(g: Game, portion: number, stove: number) {
   }
   s.portion = p;
   s.started = g.time;
+  // 设备状况跨日继承：每做一道菜累积一点损耗
+  s.wear = Math.min(3, Math.round((s.wear + WEAR_PER_COOK) * 100) / 100);
   g.portions = g.portions.filter((x) => x.id !== portion);
   g.notice = "已经下锅，请在最佳火候起锅";
 }
@@ -22,7 +24,7 @@ export function lift(g: Game, id: number) {
     return;
   }
   const p = s.portion,
-    q = quality(p.recipe, g.time - s.started);
+    q = quality(p.recipe, g.time - s.started, s.tier, s.wear);
   g.dishes.push({
     id: p.id,
     recipe: p.recipe,

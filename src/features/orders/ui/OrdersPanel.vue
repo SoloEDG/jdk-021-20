@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Game, Command } from "../../../shared/types";
 import { activeOrders } from "../lib/patience";
+import { dayPlans } from "../../../shared/catalog";
 import OrderCard from "./OrderCard.vue";
 defineProps<{ game: Game }>();
 defineEmits<{ command: [cmd: Command] }>();
@@ -14,7 +15,10 @@ defineEmits<{ command: [cmd: Command] }>();
           今日订单 <span class="count">{{ activeOrders(game).length }}</span>
         </h2>
       </div>
-      <span class="muted">接单后开始备餐 · 每 18 秒迎来新客</span>
+      <span class="muted"
+        >接单后开始备餐 · 今天每 {{ dayPlans[game.day - 1].spawnEvery }}
+        秒迎来新客</span
+      >
     </div>
     <div class="tickets">
       <OrderCard

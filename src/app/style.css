@@ -397,6 +397,10 @@ h2 {
   line-height: 1.7;
   margin-top: 16px;
 }
+.shelf-cap {
+  margin: 10px 0 0;
+  line-height: 1.6;
+}
 .stoves {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -682,24 +686,221 @@ footer {
   display: grid;
   place-items: center;
   z-index: 10;
+  overflow-y: auto;
+  padding: 30px 15px;
 }
-.result {
+.modal {
   background: #fffdf5;
-  padding: 45px 65px;
+  padding: 36px 42px;
   border-radius: 18px;
-  text-align: center;
   box-shadow: 0 20px 100px #203e3355;
+  width: min(860px, 96vw);
+  max-height: 92vh;
+  overflow-y: auto;
 }
-.grade {
-  font: 100px Georgia;
+.modal h2 {
+  font-size: 22px;
+  margin: 10px 0;
+}
+.modal h3 {
+  font-size: 13px;
+  margin: 18px 0 10px;
+  color: #315a42;
+}
+.brief-text {
+  font-size: 12px;
+  color: #7c8d72;
+  line-height: 1.8;
+}
+.brief-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 18px 0;
+}
+.brief-card {
+  background: #f3f2e8;
+  border: 1px solid #e5e8da;
+  border-radius: 8px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.brief-card small {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #99a18b;
+}
+.brief-card b {
+  font-size: 13px;
+}
+.brief-card span {
+  font-size: 10px;
+  color: #8d9884;
+}
+.opening-notes {
+  background: #efeee2;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+}
+.opening-notes strong {
+  font-size: 11px;
+  color: #a47c45;
+}
+.opening-notes ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  font-size: 11px;
+  line-height: 1.9;
+  color: #67755f;
+}
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.modal-actions button {
+  padding: 11px 22px;
+  font-size: 12px;
+}
+.practice-tag {
+  color: #b5763f !important;
+  font-weight: 700;
+  margin-top: 8px;
+}
+.day-pill {
+  background: #e3e9dc;
+  border-radius: 20px;
+  padding: 5px 11px;
+  font-size: 10px;
+  color: #56734f;
+  font-weight: 700;
+}
+.goal-box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.goal-box small {
+  font-size: 9px;
+}
+.goal-track {
+  height: 5px;
+  background: #e6e5d9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.goal-track i {
+  display: block;
+  height: 100%;
+  background: #c98e59;
+  transition: width 0.3s;
+}
+.goal-box > span {
+  font-size: 10px;
+  color: #7d8a76;
+}
+.shop-block {
+  border-top: 1px dashed #dcdfd1;
+  padding-top: 8px;
+}
+.shop-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 4px;
+  border-bottom: 1px solid #efeee5;
+  flex-wrap: wrap;
+}
+.shop-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 150px;
+  flex: 1;
+}
+.shop-info b {
+  font-size: 12px;
+}
+.shop-info span {
+  font-size: 10px;
+  color: #8d9884;
+}
+.upgrade-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 190px;
+}
+.upgrade-detail span {
+  font-size: 9px;
+  color: #99a18b;
+}
+.shop-row .tiny {
+  line-height: 1.5;
+  padding: 7px 10px;
+}
+.pending-list {
+  font-size: 10px;
+  color: #a47c45;
+  line-height: 1.8;
+}
+.pending-list span {
+  margin-right: 12px;
+}
+.result .grade {
+  font: 72px Georgia;
   color: #b58b4f;
+  text-align: center;
 }
 .result p {
   font-size: 13px;
   color: #7c8d72;
+  text-align: center;
 }
-.result button {
-  margin-top: 20px;
+.history-table {
+  overflow-x: auto;
+  margin: 16px 0;
+}
+.history-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+  min-width: 720px;
+}
+.history-table th,
+.history-table td {
+  padding: 9px 8px;
+  border-bottom: 1px solid #eceadd;
+  text-align: left;
+  white-space: nowrap;
+}
+.history-table th {
+  color: #879489;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+}
+.history-table tfoot td {
+  font-weight: 700;
+  border-top: 2px solid #d8dccb;
+}
+.goal-ok {
+  color: #4f7a4f;
+}
+.goal-miss {
+  color: #ba7d65;
+}
+.record-note {
+  text-align: center;
+  font-size: 11px;
+  color: #7c8d72;
+  margin-bottom: 8px;
+}
+.end-modal h2 {
+  text-align: center;
 }
 @media (min-width: 1550px) {
   main {

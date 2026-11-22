@@ -1,6 +1,7 @@
 import type { Game, RecipeId, Ingredient } from "../../../shared/types";
-import { recipes, ingredients } from "../../../shared/catalog";
+import { recipes, ingredients, STOCK_CAP } from "../../../shared/catalog";
 import { preparationIssue } from "../lib/availability";
+import { cashEntry } from "../../campaign";
 export function prepare(g: Game, r: RecipeId) {
   const issue = preparationIssue(g, r);
   if (issue) {
@@ -12,17 +13,17 @@ export function prepare(g: Game, r: RecipeId) {
   g.notice = `${recipes[r].name} 备料完成，可送入灶台`;
 }
 export function restock(g: Game, i: Ingredient) {
-  if (g.stock[i] >= 12) {
-    g.notice = "库存充足，上限12份";
+  if (g.stock[i] >= STOCK_CAP) {
+    g.notice = `库存充足，上限${STOCK_CAP}份`;
     return;
   }
-  g.stock[i] = Math.min(12, g.stock[i] + 3);
-  g.entries.push({
-    id: g.nextId++,
-    time: g.time,
-    label: `采购${ingredients[i].name} ×3`,
-    amount: -ingredients[i].cost * 3,
-    kind: "supply",
-  });
-  g.notice = "已购入3份食材，费用计入账本";
+  const qty = Math.min(3, STOCK_CAP - g.stock[i]);
+  const cost = ingredients[i].cost * qty;
+  if (g.cash < cost) {
+    g.notice = `现金不足，本次采购需要 ¥${cost}`;
+    return;
+  }
+  g.stock[i] += qty;
+  cashEntry(g, `临时采购${ingredients[i].name} ×${qty}`, -cost, "supply");
+  g.notice = `已购入${qty}份食材，费用当场从现金扣除`;
 }

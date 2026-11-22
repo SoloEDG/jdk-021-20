@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Game, Ingredient } from "../../../shared/types";
-import { ingredients } from "../../../shared/catalog";
+import { ingredients, STOCK_CAP } from "../../../shared/catalog";
 defineProps<{ game: Game }>();
 defineEmits<{ restock: [i: Ingredient] }>();
 const ids: Ingredient[] = ["beef", "noodle", "greens"];
@@ -18,5 +18,6 @@ const ids: Ingredient[] = ["beef", "noodle", "greens"];
         +3 / ¥{{ ingredients[i].cost * 3 }}
       </button>
     </div>
+    <p class="muted shelf-cap">库存上限 {{ STOCK_CAP }} 份 · 未用完的原料可跨日保留</p>
   </div>
 </template>

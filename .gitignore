@@ -1,5 +1,6 @@
 node_modules/
 dist/
+.tmp-test/
 
 # PINRU annotation baseline
 node_modules/

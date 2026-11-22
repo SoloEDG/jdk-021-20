@@ -9,7 +9,10 @@ defineEmits<{ command: [cmd: Command] }>();
   <article class="stove" :class="{ cooking: stove.portion }">
     <div class="stove-head">
       <b>{{ stove.kind === "pan" ? "煎锅" : "汤锅" }} 0{{ stove.id }}</b
-      ><span class="status-dot">{{ heatLabel(game, stove) }}</span>
+      ><span class="status-dot"
+        >Lv.{{ stove.tier }} · 损耗 {{ stove.wear.toFixed(1) }} ·
+        {{ heatLabel(game, stove) }}</span
+      >
     </div>
     <div class="burner">
       <div class="pan-shape">

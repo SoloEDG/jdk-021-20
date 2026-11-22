@@ -1,6 +1,7 @@
 import type { Game } from "../../../shared/types";
 import { recipes } from "../../../shared/catalog";
 import { servingQuality, servicePair } from "../lib/freshness";
+import { cashEntry } from "../../campaign";
 export function deliver(g: Game) {
   const { dish, order } = servicePair(g);
   if (!dish || dish.stage !== "plated" || !order) {
@@ -25,13 +26,7 @@ export function deliver(g: Game) {
   const amount =
     Math.round((recipes[dish.recipe].price * q) / 100) +
     Math.min(10, (g.combo - 1) * 2);
-  g.entries.push({
-    id: g.nextId++,
-    time: g.time,
-    label: `${order.guest} · ${recipes[dish.recipe].name}`,
-    amount,
-    kind: "sale",
-  });
+  cashEntry(g, `${order.guest} · ${recipes[dish.recipe].name}`, amount, "sale");
   g.dishes = g.dishes.filter((d) => d.id !== dish.id);
   g.selectedDish = null;
   g.selectedOrder = null;

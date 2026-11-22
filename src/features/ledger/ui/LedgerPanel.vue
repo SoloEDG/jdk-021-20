@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Game } from "../../../shared/types";
 import { totals } from "../lib/totals";
+import { dayEntries } from "../../campaign";
 defineProps<{ game: Game }>();
 </script>
 <template>
@@ -10,10 +11,13 @@ defineProps<{ game: Game }>();
       <h2>营业手账</h2>
     </div>
     <div class="ledger-stat">
-      <small>营业收入</small><b>¥{{ totals(game).sales }}</b>
+      <small>今日营业收入</small><b>¥{{ totals(game).sales }}</b>
     </div>
     <div class="ledger-stat">
-      <small>采购 / 损失</small><b class="red">−¥{{ totals(game).cost }}</b>
+      <small>今日采购 / 损失</small><b class="red">−¥{{ totals(game).cost }}</b>
+    </div>
+    <div class="ledger-stat">
+      <small>当前现金</small><b :class="{ red: game.cash < 0 }">¥{{ game.cash }}</b>
     </div>
     <div class="ledger-stat">
       <small>成功 / 离店</small
@@ -22,14 +26,18 @@ defineProps<{ game: Game }>();
       >
     </div>
     <div class="ledger-stat">
-      <small>历史最佳</small><b>¥{{ game.best }}</b>
+      <small>单日最佳 / 七天最佳</small
+      ><b>¥{{ game.best }} <span class="muted">/ ¥{{ game.campaignBest }}</span></b
+      >
     </div>
     <div class="receipt">
-      <div v-for="e in game.entries.slice(-3).reverse()" :key="e.id">
+      <div v-for="e in dayEntries(game).slice(-4).reverse()" :key="e.id">
         <span>{{ e.label }}</span
-        ><b>{{ e.amount >= 0 ? "+" : "" }}{{ e.amount }}</b>
+        ><b :class="{ red: e.amount < 0 }">{{
+          e.amount >= 0 ? "+" : ""
+        }}{{ e.amount }}</b>
       </div>
-      <span v-if="!game.entries.length" class="muted"
+      <span v-if="!dayEntries(game).length" class="muted"
         >第一笔收入，马上就来。</span
       >
     </div>
